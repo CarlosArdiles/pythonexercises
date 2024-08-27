@@ -1,8 +1,6 @@
 --- CARLOS FRANCO ARDILES GONZALEZ
 
---- EVALUACION FINAL MODULO 6
-
---- 1. Obtener el nombre y la cantidad de productos vendidos de cada categoría en el año 1997.
+--- 1. Obtener el nombre y la cantidad de productos vendidos de cada categorÃ­a en el aÃ±o 1997.
 
 SELECT CategoryName, ProductName, SUM([Order Details].Quantity) as 'Cantidad de Productos' from Products 
 INNER JOIN [Order Details] ON Products.ProductID = [Order Details].ProductID
@@ -11,9 +9,9 @@ INNER JOIN Categories ON Products.CategoryID = Categories.CategoryID
 WHERE YEAR(OrderDate) = 1997
 Group BY ProductName, CategoryName
 ORDER BY CategoryName ASC
---- EN ESTA PREGUNTA ENTIENDO QUE SOLICITA EL NOMBRE DEL PRODUCTO Y CANTIDAD DE PRODUCTO, VENDIDO DE CADA CATEGORIA EN EL AÑO 1997
+--- EN ESTA PREGUNTA ENTIENDO QUE SOLICITA EL NOMBRE DEL PRODUCTO Y CANTIDAD DE PRODUCTO, VENDIDO DE CADA CATEGORIA EN EL AÃ‘O 1997
 
---- 2. Obtener el nombre del empleado, la cantidad de órdenes procesadas y el total de 
+--- 2. Obtener el nombre del empleado, la cantidad de Ã³rdenes procesadas y el total de 
 --- productos vendidos por cada empleado.
 
 select (FirstName+' '+LastName) as 'Nombre Completo', COUNT(DISTINCT Orders.OrderID)  as 'Cantidad Ordenes', SUM([Order Details].Quantity) as 'Total Productos' from Orders
@@ -32,9 +30,9 @@ group by c.CompanyName
 order by 'Primer Pedido' ASC
 
 
---- 4. Obtener el nombre del empleado, la cantidad de órdenes procesadas y el total de 
---- productos vendidos solo para los empleados que hayan procesado más de 50 órdenes.
---- CONSIDERÉ TOTAL DE PRODUCTOS VENDIDOS COMO LA CANTIDAD DE PRODUCTOS VENDIDOS 'QUANTITY'
+--- 4. Obtener el nombre del empleado, la cantidad de Ã³rdenes procesadas y el total de 
+--- productos vendidos solo para los empleados que hayan procesado mÃ¡s de 50 Ã³rdenes.
+--- CONSIDERÃ‰ TOTAL DE PRODUCTOS VENDIDOS COMO LA CANTIDAD DE PRODUCTOS VENDIDOS 'QUANTITY'
 Select (FirstName+' '+LastName) as 'Nombre y Apellido', COUNT(DISTINCT o.OrderID) 'Cantidad Ordenes',
 SUM(od.Quantity) 'Cantidad Total Productos'
 from Employees e
@@ -45,7 +43,7 @@ Group By (FirstName+' '+LastName) HAVING COUNT(DISTINCT o.OrderID) > 50
 
 
 --- 5. Obtener el nombre del producto, el precio unitario y la cantidad vendida de los productos 
---- que se encuentran en la categoría 'Beverages' y cuyo precio unitario sea mayor a $10.
+--- que se encuentran en la categorÃ­a 'Beverages' y cuyo precio unitario sea mayor a $10.
 
 Select p.ProductName, p.UnitPrice, SUM(od.Quantity) 'Cantidad Vendida'
 from Products p
@@ -55,11 +53,18 @@ WHERE od.UnitPrice > 10 and CategoryName = 'Beverages'
 Group by p.ProductName , p.UnitPrice
 
 --- 6.Obtener el nombre del cliente y el total gastado por cada cliente que haya realizado una 
---- orden en el mes de enero de cualquier año.Select CompanyName, SUM(od.UnitPrice*od.Quantity*(1-od.Discount)) 'Total Pagado'from Customers cINNER JOIN Orders o ON c.CustomerID = o.CustomerIDINNER JOIN [Order Details] od ON o.OrderID = od.OrderIDGroup By c.CompanyName HAVING MIN(MONTH(o.OrderDate)) = 1order by CompanyName--- DE LA PREGUNTA SE ENTIENDE QUE QUIERE LOS CLIENTES QUE SOLO HAN HECHO 1 ORDEN EN EL MES DE ENERO
+--- orden en el mes de enero de cualquier aÃ±o.
+Select CompanyName, SUM(od.UnitPrice*od.Quantity*(1-od.Discount)) 'Total Pagado'from Customers c
+INNER JOIN Orders o ON c.CustomerID = o.CustomerID
+INNER JOIN [Order Details] od ON o.OrderID = od.OrderID
+Group By c.CompanyName 
+HAVING MIN(MONTH(o.OrderDate)) = 1
+order by CompanyName
+--- DE LA PREGUNTA SE ENTIENDE QUE QUIERE LOS CLIENTES QUE SOLO HAN HECHO 1 ORDEN EN EL MES DE ENERO
 
 
 --- 7. Obtener el nombre del empleado y el total de productos vendidos por cada empleado que 
---- haya procesado órdenes en el año 1996 o 1997
+--- haya procesado Ã³rdenes en el aÃ±o 1996 o 1997
 
 select (FirstName+' '+LastName) as 'Nombre Completo', SUM(od.Quantity) as 'Total Productos Vendidos'
 from Employees e
@@ -69,7 +74,7 @@ WHERE Year(OrderDate) BETWEEN 1996 AND 1997
 GROUP BY (FirstName+' '+LastName)
 
 --- 9. Obtener el nombre del producto, el precio unitario y la cantidad vendida de los productos 
---- que se encuentran en la categoría 'Confections' o 'Seafood' y cuyo precio unitario esté 
+--- que se encuentran en la categorÃ­a 'Confections' o 'Seafood' y cuyo precio unitario estÃ© 
 --- entre $5 y $10.
 
 Select p.ProductName, p.UnitPrice, SUM(od.Quantity) 'Cantidad Vendida'
